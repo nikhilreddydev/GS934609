@@ -1,58 +1,95 @@
-# GS934609_Ajith_Teja-
+GSynergy React Project
 
-=======
+📌 Project Overview
 
-# React + TypeScript + Vite
+This is a React-based project using Vite, TypeScript, and Tailwind CSS. It features an interactive UI with AG Grid, React Router, and reusable components for an efficient development experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Getting Started
 
-Currently, two official plugins are available:
+1️⃣ Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Node.js (Latest LTS recommended)
 
-## Expanding the ESLint configuration
+npm (or yarn/pnpm as package manager)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2️⃣ Installation & Running the Project
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+# Clone the repository
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+git clone <repo-url>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+# Navigate into the project folder
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+cd gs_react
+
+# Install dependencies
+
+npm install
+
+# Start the development server
+
+npm run dev
+
+The app will be available at http://localhost:5173/.
+
+3️⃣ Building the Project
+
+npm run build
+
+This compiles the TypeScript files and bundles the app for production.
+
+4️⃣ Running Lint Checks
+
+npm run lint
+
+This ensures the code follows best practices and consistent formatting.
+
+✅ Features Implemented Successfully
+
+🔹 AG Grid for Dynamic Tables
+
+Implemented AG Grid React for handling large datasets efficiently.
+
+Added dynamic column formatting, sorting, filtering, and editing capabilities.
+
+🔹 Responsive UI with Tailwind CSS
+
+Fully responsive sidebar, navbar, and tables.
+
+Custom styles applied using index.css for consistency.
+
+🔹 React Router for Navigation
+
+Implemented a structured routing system with React Router v7.
+
+Sidebar navigation updates dynamically based on the selected route.
+
+🔹 Optimized State Management
+
+Used useState and useRef for managing grid data and UI interactions.
+
+Implemented controlled components for handling form inputs and validation.
+
+These elements demonstrate my ability to build a scalable, efficient, and well-structured React application.
+
+⏳ What Could Be Improved with 4 More Hours?
+
+🛠 Code Enhancements & Performance Optimizations
+
+Lazy Loading & Code Splitting: Improve performance by loading only required components on demand.
+
+Better Error Handling: Implement error boundaries and toast notifications for improved user feedback.
+
+Unit & Integration Tests: Write Jest & React Testing Library tests for components to ensure reliability.
+
+Enhance Type Safety: Improve TypeScript typings for AG Grid and global state management.
+
+These improvements would make the app more robust, maintainable, and scalable.
+
+💡 Feedback on the Challenge
+
+The challenge was well-structured and covered frontend performance, state management, and UI responsiveness.
+
+Could include API integration tasks to test async data fetching and caching.
+
+💬 Thanks for the opportunity! Looking forward to any feedback or further enhancements! 🚀
