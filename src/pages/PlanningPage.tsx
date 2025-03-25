@@ -1,3 +1,6 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store';
+import { setRowData, updateRow } from '../store/planningSlice';
 import {
   ColDef,
   ColGroupDef,
@@ -5,7 +8,7 @@ import {
   GridReadyEvent,
 } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const calendarData = [
@@ -68,6 +71,8 @@ const formatInitialRowData = () => {
 };
 
 const Planning = () => {
+  const dispatch = useDispatch();
+  const rowData = useSelector((state: RootState) => state.planning.rowData);
   const gridRef = useRef<AgGridReact>(null);
   const gridApiRef = useRef<any>(null);
   const priceAndCostData = useRef(
@@ -78,10 +83,10 @@ const Planning = () => {
     }))
   );
 
-  const [rowData, setRowData] = useState(formatInitialRowData());
-
   const onGridReady = (params: GridReadyEvent) => {
     gridApiRef.current = params.api;
+    const formattedRowData = formatInitialRowData();
+    dispatch(setRowData(formattedRowData));
   };
 
   const onCellValueChanged = (params: CellValueChangedEvent) => {
@@ -106,40 +111,16 @@ const Planning = () => {
         newSalesDollars > 0
           ? Number(((newGmDollars / newSalesDollars) * 100).toFixed(2))
           : 0;
-      console.log(
-        'newSalesDollars',
-        newSalesDollars,
-        'newGmPercent',
-        newGmPercent,
-        'newSalesDollars',
-        newSalesDollars,
-        'newGmDollars',
-        newGmDollars
-      );
 
-      // console.log('SKU:', sku);
-      // console.log('New Sales Units:', newSalesUnits);
-      // console.log('Price per Unit:', price);
-      // console.log('Cost per Unit:', cost);
-      // console.log('New Sales $:', newSalesDollars);
-      // console.log('New GM $:', newGmDollars);
-      // console.log('New GM %:', newGmPercent);
+      const updatedRow = {
+        ...params.data,
+        [`${weekKey}_salesUnits`]: newSalesUnits,
+        [`${weekKey}_salesDollars`]: newSalesDollars,
+        [`${weekKey}_gmDollars`]: newGmDollars,
+        [`${weekKey}_gmPercent`]: newGmPercent,
+      };
 
-      setRowData((prevRowData) => {
-        const updatedData = prevRowData.map((row) =>
-          row.sku === sku
-            ? {
-                ...row,
-                [`${weekKey}_salesUnits`]: newSalesUnits,
-                [`${weekKey}_salesDollars`]: newSalesDollars,
-                [`${weekKey}_gmDollars`]: newGmDollars,
-                [`${weekKey}_gmPercent`]: newGmPercent,
-              }
-            : row
-        );
-
-        return [...updatedData]; //  Return new array to trigger UI update
-      });
+      dispatch(updateRow(updatedRow));
 
       if (gridApiRef.current) {
         gridApiRef.current.applyTransaction({ update: [{ ...params.data }] });
@@ -235,13 +216,19 @@ const Planning = () => {
     ),
   ];
 
+  const defaultColDef = {
+    resizable: true,
+    sortable: true,
+    filter: true,
+  };
+
   return (
     <div className="sku-container sku-table ag-theme-alpine rounded-none">
       <AgGridReact
         ref={gridRef}
         rowData={rowData}
         columnDefs={columnDefs}
-        defaultColDef={{ resizable: true, sortable: true }}
+        defaultColDef={defaultColDef}
         onGridReady={onGridReady}
         onCellValueChanged={onCellValueChanged}
         getRowId={(params) => params.data.sku}
